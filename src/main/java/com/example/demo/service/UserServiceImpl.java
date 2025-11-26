@@ -1,0 +1,41 @@
+package com.example.demo.service;
+
+
+import com.example.demo.dao.UserDao;
+import com.example.demo.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private final UserDao userDao;
+
+    @Autowired
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public User getById(Integer id) {
+        return userDao.findById(id);
+    }
+
+    public List<User> getList() {
+        return userDao.getUserList();
+    }
+
+    public void createUser(User rev) {
+        userDao.saveUser(rev);
+    }
+
+    public void updateUser(Integer id, User rev) {
+        userDao.updateUser(id, rev);
+    }
+
+    public void deleteUser(Integer id) {
+        userDao.deleteUser(id);
+    }
+
+}

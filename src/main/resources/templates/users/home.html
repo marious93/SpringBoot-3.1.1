@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="User : ${users}">
+        <td>
+            <a th:href="@{/users/{id}?id={id}(id=${User.getId()})}" th:text="${User.getId()}">user</a>
+        </td>
+        <td th:text="${User.name}"></td>
+        <td th:text="${User.mail}"></td>
+        <td th:text="${User.age}"></td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<hr/>
+<a href="/users/new"> Create new user</a>
+</body>
+</html>
