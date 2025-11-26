@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String createUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "users/create";
         }
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, BindingResult bindingResult,
+    public String updateUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult,
                              @RequestParam int id) {
         if (bindingResult.hasErrors()) {
             return "users/edit";

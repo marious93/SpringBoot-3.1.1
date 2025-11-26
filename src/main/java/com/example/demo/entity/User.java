@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "usert")
@@ -10,16 +11,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-   // @NotEmpty(message = "Name shouldn't be empty")
-    //@Size(min = 2, max = 30, message = "Name too short")
-    @Column(nullable = false, name = "name")
+    @NotEmpty(message = "Name shouldn't be empty")
+    @Size(min = 2, max = 30, message = "Name too short")
+    @Column(name = "name")
     private String name;
 
-   // @NotEmpty(message = "Mail shouldn't be empty")
-    //@Email(message = "Mail should be valid")
-    @Column(name = "eMail")
+    @NotEmpty(message = "Mail shouldn't be empty")
+    @Email(message = "Mail should be valid")
+    @Column(name = "e_mail")
     private String mail;
 
+    @Min(1)
+    @Max(100)
+    @Column(name = "age")
     private int age;
 
     public User() {
