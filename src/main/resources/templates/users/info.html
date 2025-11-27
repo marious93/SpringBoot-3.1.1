@@ -11,7 +11,7 @@
 <div>Age: <a th:text="${user.getAge()}">user</a></div>
 <div><a th:href="@{/users/edit/{id}?id={id}(id=${user.getId()})}">Edit</a></div>
 <br/>
-<form th:method="POST" th:action="@{/users/delete/{id}?id={id}(id=${user.getId()})}">
+<form th:method="DELETE" th:action="@{/users/delete/{id}?id={id}(id=${user.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
 
