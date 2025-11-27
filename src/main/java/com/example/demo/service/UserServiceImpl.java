@@ -26,12 +26,12 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserList();
     }
 
-    public void saveUser(User rev) {
-        userDao.saveUser(rev);
+    public void saveUser(User user) {
+        userDao.saveUser(user);
     }
 
-    public void updateUser(Integer id, User rev) {
-        userDao.updateUser(id, rev);
+    public void updateUser(Integer id, User user) {
+        userDao.updateUser(id, user);
     }
 
     public void deleteUser(Integer id) {
