@@ -18,15 +18,15 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    public User getById(Integer id) {
-        return userDao.findById(id);
+    public User getUserById(Integer id) {
+        return userDao.findUserById(id);
     }
 
-    public List<User> getList() {
+    public List<User> getUserList() {
         return userDao.getUserList();
     }
 
-    public void createUser(User rev) {
+    public void saveUser(User rev) {
         userDao.saveUser(rev);
     }
 

@@ -5,7 +5,7 @@ import com.example.demo.entity.User;
 import java.util.List;
 
 public interface UserDao {
-    public User findById(Integer id);
+    public User findUserById(Integer id);
 
     public List<User> getUserList();
 

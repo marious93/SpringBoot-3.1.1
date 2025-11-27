@@ -15,24 +15,24 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService revService) {
-        this.userService = revService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
     public String showUserById(@RequestParam int id, Model model) {
-        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "users/info";
     }
 
     @GetMapping()
-    public String getFullList(Model model) {
-        model.addAttribute("users", userService.getList());
+    public String showUsersList(Model model) {
+        model.addAttribute("users", userService.getUserList());
         return "users/home";
     }
 
     @GetMapping("/new")
-    public String newUser(Model model) {
+    public String createUser(Model model) {
         model.addAttribute("user", new User());
         return "users/create";
     }
@@ -42,13 +42,13 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "users/create";
         }
-        userService.createUser(user);
+        userService.saveUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/edit/{id}")
     public String editUser(Model model, @RequestParam int id) {
-        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "users/edit";
     }
 
