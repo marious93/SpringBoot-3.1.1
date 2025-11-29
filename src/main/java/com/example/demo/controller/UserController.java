@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String showUserById(@PathVariable int id, Model model) throws Exception {
+    public String showUserById(@PathVariable("id") int id, Model model) throws Exception {
         model.addAttribute("user", userService.getUserById(id));
         return "users/info";
     }
@@ -45,15 +45,15 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editUser(Model model, @PathVariable int id) throws Exception {
+    @GetMapping("/{id}/edit")
+    public String editUser(Model model, @PathVariable("id") int id) throws Exception {
         model.addAttribute("user", userService.getUserById(id));
         return "users/edit";
     }
 
-    @PostMapping("/{id}")
+    @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult,
-                             @PathVariable int id) {
+                             @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "users/edit";
         }
@@ -61,8 +61,8 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteUser(@PathVariable int id) {
+    @PostMapping("/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/users";
     }
