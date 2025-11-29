@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
+import com.example.demo.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
     @GetMapping("/{id}")
-    public String showUserById(@RequestParam int id, Model model) {
+    public String showUserById(@PathVariable int id, Model model) throws Exception {
         model.addAttribute("user", userService.getUserById(id));
         return "users/info";
     }
@@ -46,14 +46,14 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editUser(Model model, @RequestParam int id) {
+    public String editUser(Model model, @PathVariable int id) throws Exception {
         model.addAttribute("user", userService.getUserById(id));
         return "users/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public String updateUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult,
-                             @RequestParam int id) {
+                             @PathVariable int id) {
         if (bindingResult.hasErrors()) {
             return "users/edit";
         }
@@ -61,8 +61,8 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteUser(@RequestParam int id) {
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
         return "redirect:/users";
     }
