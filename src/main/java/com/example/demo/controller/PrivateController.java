@@ -10,52 +10,39 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/users")
 @Controller
-public class UserController {
+public class PrivateController {
 
     private final UserServiceImpl userService;
 
-    public UserController(UserServiceImpl userService) {
+    public PrivateController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
     @GetMapping("/{id}")
     public String showUserById(@PathVariable("id") int id, Model model) throws Exception {
         model.addAttribute("user", userService.getUserById(id));
-        return "users/info";
+        return "private/info";
     }
 
     @GetMapping()
     public String showUsersList(Model model) {
         model.addAttribute("users", userService.getUserList());
-        return "users/home";
+        return "private/home";
     }
 
-    @GetMapping("/new")
-    public String createUserPage(Model model) {
-        model.addAttribute("user", new User());
-        return "users/create";
-    }
 
-    @PostMapping
-    public String createUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "users/create";
-        }
-        userService.saveUser(user);
-        return "redirect:/users";
-    }
 
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") int id) throws Exception {
         model.addAttribute("user", userService.getUserById(id));
-        return "users/edit";
+        return "private/edit";
     }
 
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult,
                              @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
-            return "users/edit";
+            return "private/edit";
         }
         userService.updateUser(id, user);
         return "redirect:/users";

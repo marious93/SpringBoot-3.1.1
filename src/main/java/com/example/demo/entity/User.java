@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "usert")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -17,23 +17,50 @@ public class User {
     private String name;
 
     @NotEmpty(message = "Mail shouldn't be empty")
+    @Size(min = 2, max = 30, message = "Mail too short")
     @Email(message = "Mail should be valid")
-    @Column(name = "e_mail")
-    private String mail;
+    @Column(name = "email", unique = true)
+    private String email;
+
+    @NotEmpty(message = "Password shouldn't be empty")
+    @Size(min = 2, max = 60, message = "Password too short")
+    @Column(name = "password")
+    private String password;
 
     @Min(1)
     @Max(100)
     @Column(name = "age")
     private int age;
 
+    @Column(name="role")
+    private UserRole role;
+
     public User() {
     }
 
-    public User(Integer id, String name, String mail, int age) {
-        this.id = id;
+
+    public User(String name, String email, String password, Integer age, UserRole role) {
         this.name = name;
-        this.mail = mail;
+        this.email = email;
+        this.password = password;
         this.age = age;
+        this.role = role;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public @NotEmpty(message = "Password shouldn't be empty") String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotEmpty(message = "Password shouldn't be empty") String password) {
+        this.password = password;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getName() {
@@ -44,20 +71,20 @@ public class User {
         this.name = firstName;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
     public String getMail() {
-        return mail;
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setMail(String email) {
+        this.email = email;
     }
 
     public Integer getId() {
@@ -73,7 +100,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", mail='" + mail + '\'' +
+                ", mail='" + email + '\'' +
                 ", age=" + age +
                 '}';
     }
