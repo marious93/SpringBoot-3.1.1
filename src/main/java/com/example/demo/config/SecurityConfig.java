@@ -18,14 +18,14 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/", "/registration").permitAll() // Publicly accessible
-                        .requestMatchers("/users/**","/user/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
-                        .requestMatchers(("/admin/**")).hasRole(UserRole.ADMIN.name()) // Requires ADMIN role
+                        .requestMatchers("/user/**").hasAnyRole(UserRole.USER.name(), UserRole.ADMIN.name())
+                        .requestMatchers("/admin/**","/users").hasRole(UserRole.ADMIN.name()) // Requires ADMIN role
                         .anyRequest().authenticated() // All other requests require authentication
                 )
                 .formLogin(form -> form
                         .loginPage("/login") // Specify your custom login page URL
                       //  .usernameParameter("email")
-                      //  .defaultSuccessUrl("/user")
+                        .defaultSuccessUrl("/user/{id}")
                         .permitAll() // Allow access to the login page itself
                 )
                 .logout(LogoutConfigurer::permitAll // Allow everyone to access the logout endpoint

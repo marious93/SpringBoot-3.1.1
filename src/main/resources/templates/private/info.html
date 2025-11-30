@@ -11,7 +11,7 @@
 <div>Age: <a th:text="${user.getAge()}">user</a></div>
 <div>Password: <a th:text="${user.getPassword()}">user</a></div>
 <div>Role: <a th:text="${user.getRole()}">user</a></div>
-<div><a th:href="@{/templates/private/{id}/edit(id=${user.getId()})}">Edit</a></div>
+<div><a th:href="@{/{id}/edit/{id}/edit(id=${user.getId()})}">Edit</a></div>
 <br/>
 <form th:method="POST" th:action="@{/templates/private/{id}(id=${user.getId()})}">
     <input type="submit" value="Delete"/>

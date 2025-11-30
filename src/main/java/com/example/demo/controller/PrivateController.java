@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/users")
+@RequestMapping("/user")
 @Controller
 public class PrivateController {
 
@@ -24,13 +24,6 @@ public class PrivateController {
         return "private/info";
     }
 
-    @GetMapping()
-    public String showUsersList(Model model) {
-        model.addAttribute("users", userService.getUserList());
-        return "private/home";
-    }
-
-
 
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") int id) throws Exception {
@@ -39,7 +32,7 @@ public class PrivateController {
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user")@Valid User user, BindingResult bindingResult,
+    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                              @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "private/edit";
