@@ -19,7 +19,7 @@ public class User {
     @NotEmpty(message = "Mail shouldn't be empty")
     @Size(min = 2, max = 30, message = "Mail too short")
     @Email(message = "Mail should be valid")
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
     @NotEmpty(message = "Password shouldn't be empty")
