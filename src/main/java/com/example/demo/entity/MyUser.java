@@ -6,43 +6,57 @@ import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class MyUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @NotEmpty(message = "Name shouldn't be empty")
     @Size(min = 2, max = 30, message = "Name too short")
-    @Column(name = "name")
-    private String name;
+    @Column(name = "login")
+    private String login;
 
-    @NotEmpty(message = "Mail shouldn't be empty")
+
     @Email(message = "Mail should be valid")
     @Column(name = "mail")
     private String mail;
 
-    @Min(1)
+    private String password;
+
+    private Role role;
+
+
     @Max(100)
     @Column(name = "age")
     private int age;
 
-    public User() {
+    public MyUser() {
     }
 
-    public User(Integer id, String name, String mail, int age) {
-        this.id = id;
-        this.name = name;
-        this.mail = mail;
-        this.age = age;
+
+    public String getPassword() {
+        return password;
     }
 
-    public String getName() {
-        return name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setName(String firstName) {
-        this.name = firstName;
+    public String getRole() {
+        return role.toString();
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String firstName) {
+        this.login = firstName;
     }
 
     public int getAge() {
@@ -69,11 +83,15 @@ public class User {
         this.id = id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + login + '\'' +
                 ", mail='" + mail + '\'' +
                 ", age=" + age +
                 '}';

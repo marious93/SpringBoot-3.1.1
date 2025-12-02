@@ -1,17 +1,17 @@
 package com.example.demo.dao;
 
-import com.example.demo.entity.User;
+import com.example.demo.entity.MyUser;
 
 import java.util.List;
 
 public interface UserDao {
-    public User findUserById(Integer id);
+    public MyUser findUserById(Integer id);
 
-    public List<User> getUserList();
+    public List<MyUser> getUserList();
 
-    public void saveUser(User user);
+    public void saveUser(MyUser user);
 
-    public void updateUser(Integer id, User updatedUser);
+    public void updateUser(Integer id, MyUser updatedUser);
 
     public void deleteUser(Integer id);
 }

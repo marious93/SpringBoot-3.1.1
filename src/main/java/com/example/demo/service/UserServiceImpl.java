@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
 
-import com.example.demo.dao.UserDao;
-import com.example.demo.entity.User;
+import com.example.demo.entity.MyUser;
 import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,27 +17,29 @@ public class UserServiceImpl  {
     }
 
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow();
+    public MyUser getUserById(Integer id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-    public List<User> getUserList() {
+    public List<MyUser> getUserList() {
         return userRepository.findAll();
     }
 
-    public void saveUser(User user) {
+    public void saveUser(MyUser user) {
         userRepository.save(user);
     }
 
-    public void updateUser(Long id, User user) {
-        User usertoUpdate = userRepository.findById(id).orElseThrow();
-        usertoUpdate.setName(user.getName());
+    public void updateUser(Integer id, MyUser user) {
+        MyUser usertoUpdate = userRepository.findById(id).orElseThrow();
+        System.out.println(usertoUpdate);
+        usertoUpdate.setPassword(user.getPassword());
+        usertoUpdate.setLogin(user.getLogin());
         usertoUpdate.setAge(user.getAge());
         usertoUpdate.setMail(user.getMail());
         userRepository.save(usertoUpdate);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(Integer id) {
         userRepository.deleteById(id);
     }
 

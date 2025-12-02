@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.entity.User;
+import com.example.demo.entity.MyUser;
 import javax.persistence.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,31 +14,31 @@ public class UserDaoImpl implements UserDao {
     public EntityManager em;
 
     @Override
-    public List<User> getUserList() {
-        return em.createQuery("from User ", User.class).getResultList();
+    public List<MyUser> getUserList() {
+        return em.createQuery("from MyUser ", MyUser.class).getResultList();
     }
 
     @Override
-    public User findUserById(Integer id) {
-        return em.find(User.class, id);
+    public MyUser findUserById(Integer id) {
+        return em.find(MyUser.class, id);
     }
 
     @Override
     @Transactional
-    public void saveUser(User user) {
+    public void saveUser(MyUser user) {
         em.persist(user);
     }
 
     @Override
     @Transactional
-    public void updateUser(Integer id, User updatedUser) {
+    public void updateUser(Integer id, MyUser updatedUser) {
         em.merge(updatedUser);
     }
 
     @Override
     @Transactional
     public void deleteUser(Integer id) {
-        em.remove(em.find(User.class, id));
+        em.remove(em.find(MyUser.class, id));
     }
 
 }

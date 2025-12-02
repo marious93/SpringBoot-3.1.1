@@ -7,18 +7,18 @@
 <body>
 
 <form th:method="POST" th:action="@{/}" th:object="${user}">
-    <label for="name">Enter name</label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <label for="log">Enter login</label>
+    <input type="text" th:field="*{login}" id="log" />
+    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="login"></div>
     <br/>
-    <label for="mail">Enter mail</label>
-    <input type="text" th:field="*{mail}" id="mail"/>
-    <div style="color:red" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></div>
-    <br/>
-    <label for="age">Enter age</label>
-    <input type="text" th:field="*{age}" id="age"/>
-    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
-    <br/>
+    <label for="mail">Enter password</label>
+    <input type="password" th:field="*{password}" id="mail"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="password"></div>
+<!--    <br/>-->
+<!--    <label for="age">Enter age</label>-->
+<!--    <input type="text" th:field="*{age}" id="age"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>-->
+<!--    <br/>-->
     <input type="submit" value="Create!"/>
 </form>
 

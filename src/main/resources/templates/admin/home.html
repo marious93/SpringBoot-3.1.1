@@ -9,24 +9,27 @@
     <thead>
     <tr>
         <th>Id</th>
-        <th>Name</th>
+        <th>Login</th>
         <th>Email</th>
         <th>Age</th>
+        <th>Role</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="User : ${users}">
         <td>
-            <a th:href="@{/templates/admin/{id}?id={id}(id=${User.getId()})}" th:text="${User.getId()}">user</a>
+            <a th:href="@{/user/{id}(id=${User.getId()})}" th:text="${User.getId()}">user</a>
         </td>
-        <td th:text="${User.name}"></td>
+
+        <td th:text="${User.login}"></td>
         <td th:text="${User.mail}"></td>
         <td th:text="${User.age}"></td>
+        <td th:text="${User.getRole()}"></td>
     </tr>
     </tbody>
 </table>
 <br/>
 <hr/>
-<a href="/users/new"> Create new user</a>
+<a href="/new"> Create new user</a>
 </body>
 </html>

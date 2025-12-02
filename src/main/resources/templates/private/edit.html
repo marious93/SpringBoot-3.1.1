@@ -6,13 +6,17 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}">
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+<form th:method="POST" th:action="@{/user/edit/{id}(id=${user.getId()})}" th:object="${user}">
+    <label for="login">Enter name: </label>
+    <input type="text" th:field="*{login}" id="login"/>
+    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+    <br/>
+    <label for="login">Enter password: </label>
+    <input type="password" th:field="*{password}" id="password"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     <br/>
     <label for="mail">Enter email: </label>
-    <input type="text" th:field="*{mail}" id="mail"/>
+    <input type="email" th:field="*{mail}" id="mail"/>
     <div style="color:red" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></div>
     <br/>
     <label for="age">Enter age: </label>
