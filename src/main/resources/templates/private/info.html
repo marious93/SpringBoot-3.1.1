@@ -9,9 +9,9 @@
 <div>Name: <a th:text="${user.getName()}">user</a></div>
 <div>Email: <a th:text="${user.getMail()}">user</a></div>
 <div>Age: <a th:text="${user.getAge()}">user</a></div>
-<div><a th:href="@{/users/edit/{id}?id={id}(id=${user.getId()})}">Edit</a></div>
+<div><a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a></div>
 <br/>
-<form th:method="DELETE" th:action="@{/users/delete/{id}?id={id}(id=${user.getId()})}">
+<form th:method="DELETE" th:action="@{/user/{id}(id=${user.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
 

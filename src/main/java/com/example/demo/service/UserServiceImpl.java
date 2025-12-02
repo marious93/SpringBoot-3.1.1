@@ -3,39 +3,44 @@ package com.example.demo.service;
 
 import com.example.demo.dao.UserDao;
 import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl  {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public User getUserById(Integer id) {
-        return userDao.findUserById(id);
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow();
     }
 
     public List<User> getUserList() {
-        return userDao.getUserList();
+        return userRepository.findAll();
     }
 
     public void saveUser(User user) {
-        userDao.saveUser(user);
+        userRepository.save(user);
     }
 
-    public void updateUser(Integer id, User user) {
-        userDao.updateUser(id, user);
+    public void updateUser(Long id, User user) {
+        User usertoUpdate = userRepository.findById(id).orElseThrow();
+        usertoUpdate.setName(user.getName());
+        usertoUpdate.setAge(user.getAge());
+        usertoUpdate.setMail(user.getMail());
+        userRepository.save(usertoUpdate);
     }
 
-    public void deleteUser(Integer id) {
-        userDao.deleteUser(id);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

@@ -1,10 +1,11 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "usert")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -18,7 +19,7 @@ public class User {
 
     @NotEmpty(message = "Mail shouldn't be empty")
     @Email(message = "Mail should be valid")
-    @Column(name = "e_mail")
+    @Column(name = "mail")
     private String mail;
 
     @Min(1)
