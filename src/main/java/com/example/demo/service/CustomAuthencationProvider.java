@@ -31,7 +31,7 @@ public class CustomAuthencationProvider implements AuthenticationProvider {
         String userName = authentication.getName();
         String password = authentication.getCredentials().toString();
         //получаем пользователя
-        MyUser myUser = dao.findByLogin(userName);
+        MyUser myUser = dao.findByUsername(userName);
         //смотрим, найден ли пользователь в базе
         if (myUser == null) {
             throw new BadCredentialsException("Unknown user " + userName);
@@ -39,13 +39,13 @@ public class CustomAuthencationProvider implements AuthenticationProvider {
         if (!password.equals(myUser.getPassword())) {
             throw new BadCredentialsException("Bad password");
         }
-//        Set<Role> roles = myUser.getRoles();
-//        List<Role> stringList = new ArrayList<>(roles);
+        Set<Role> roles = myUser.getRoles();
+        List<Role> stringList = new ArrayList<>(roles);
 
         UserDetails principal = User.builder()
                 .username(myUser.getLogin())
                 .password(myUser.getPassword())
-                .roles(myUser.getRole())
+                .roles(String.valueOf(stringList))
                 .build();
         return new UsernamePasswordAuthenticationToken(
                 principal, password, principal.getAuthorities());

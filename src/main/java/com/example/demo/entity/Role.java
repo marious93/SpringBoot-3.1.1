@@ -11,18 +11,20 @@ public class Role {
     @GeneratedValue
     private int id;
 
-    private Roles role;
+    private String name;
 
-//    @ManyToOne
-//    @JoinTable( name = "user_roles",
-//    joinColumns = @JoinColumn(name = "role_id"),
-//    inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    private Set<MyUser> users;
+    @ManyToMany
+    @JoinTable( name = "user_roles",
+    joinColumns = @JoinColumn(name = "role_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<MyUser> users;
 
     public Role() {}
-    public Role(Roles role) {
-        this.role = role;
+
+    public Role(String name) {
+        this.name = name;
     }
+
     public int getId() {
         return id;
     }
@@ -31,21 +33,19 @@ public class Role {
         this.id = id;
     }
 
-    public Roles getRole() {
-        return role;
+    public Set<MyUser> getUsers() {
+        return users;
     }
 
-    public void setRole(Roles role) {
-        this.role = role;
+    public void setUsers(Set<MyUser> users) {
+        this.users = users;
     }
 
+    public String getName() {
+        return name;
+    }
 
-//    public Set<MyUser> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Set<MyUser> users) {
-//        this.users = users;
-//    }
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -2,13 +2,21 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.MyUser;
+import com.example.demo.entity.Role;
 import com.example.demo.repository.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl  {
+public class UserServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -41,6 +49,19 @@ public class UserServiceImpl  {
 
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        MyUser user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("User '%s' not found with username ", username));
+        }
+        return new User(user.getLogin(), user.getPassword(), getAuthorities(user.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+        return roles.stream().map(r->new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 
 }

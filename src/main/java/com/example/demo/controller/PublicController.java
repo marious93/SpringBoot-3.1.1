@@ -45,10 +45,10 @@ public class PublicController {
         if (bindingResult.hasErrors()) {
             return "public/create";
         }
-//        Role role = new Role(USER);
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(role);
-        user.setRole(ADMIN);
+        Role role = new Role(USER.toString());
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
         userService.saveUser(user);
         return "redirect:/users";
     }

@@ -29,20 +29,21 @@ public class MyUser {
     @Column(name = "age")
     private int age;
 
-    private String role;
+//    private String role;
+//
+//    public String getRole() {
+//        return role;
+//    }
 
-    public String getRole() {
-        return role;
-    }
+//    public void setRole(Roles role) {
+//        this.role = String.valueOf(role);
+//    }
 
-    public void setRole(Roles role) {
-        this.role = String.valueOf(role);
-    }
-//    @ManyToMany
-//    @JoinTable (name = "user_roles",
-//    joinColumns = @JoinColumn(name = "user_id"),
-//    inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles;
+    @ManyToMany
+    @JoinTable (name = "user_roles",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public MyUser() {
     }
@@ -56,13 +57,13 @@ public class MyUser {
         this.password = password;
     }
 
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public String getLogin() {
         return login;
