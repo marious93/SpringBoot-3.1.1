@@ -18,7 +18,7 @@
     <tbody>
     <tr th:each="User : ${users}">
         <td>
-            <a th:href="@{/user/{id}(id=${User.getId()})}" th:text="${User.getId()}">user</a>
+            <a th:href="@{/admin/{id}(id=${User.getId()})}" th:text="${User.getId()}">user</a>
         </td>
 
         <td th:text="${User.login}"></td>

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.MyUser;
+import com.example.demo.entity.Role;
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,6 +11,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class CustomAuthencationProvider implements AuthenticationProvider {
@@ -34,6 +39,9 @@ public class CustomAuthencationProvider implements AuthenticationProvider {
         if (!password.equals(myUser.getPassword())) {
             throw new BadCredentialsException("Bad password");
         }
+//        Set<Role> roles = myUser.getRoles();
+//        List<Role> stringList = new ArrayList<>(roles);
+
         UserDetails principal = User.builder()
                 .username(myUser.getLogin())
                 .password(myUser.getPassword())

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/user/edit/{id}(id=${user.getId()})}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
     <label for="login">Enter name: </label>
     <input type="text" th:field="*{login}" id="login"/>
     <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>

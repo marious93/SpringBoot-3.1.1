@@ -3,6 +3,7 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,12 +25,24 @@ public class MyUser {
 
     private String password;
 
-    private Role role;
-
-
     @Max(100)
     @Column(name = "age")
     private int age;
+
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = String.valueOf(role);
+    }
+//    @ManyToMany
+//    @JoinTable (name = "user_roles",
+//    joinColumns = @JoinColumn(name = "user_id"),
+//    inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles;
 
     public MyUser() {
     }
@@ -43,13 +56,13 @@ public class MyUser {
         this.password = password;
     }
 
-    public String getRole() {
-        return role.toString();
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
 
     public String getLogin() {
         return login;
@@ -86,6 +99,8 @@ public class MyUser {
     public void setId(int id) {
         this.id = id;
     }
+
+
 
     @Override
     public String toString() {

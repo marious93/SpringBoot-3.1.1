@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.MyUser;
 import com.example.demo.entity.Role;
+import com.example.demo.entity.Roles;
 import com.example.demo.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.example.demo.entity.Roles.ADMIN;
+import static com.example.demo.entity.Roles.USER;
 
 @Controller
 public class PublicController {
@@ -38,7 +45,10 @@ public class PublicController {
         if (bindingResult.hasErrors()) {
             return "public/create";
         }
-        user.setRole(Role.USER);
+//        Role role = new Role(USER);
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(role);
+        user.setRole(ADMIN);
         userService.saveUser(user);
         return "redirect:/users";
     }
