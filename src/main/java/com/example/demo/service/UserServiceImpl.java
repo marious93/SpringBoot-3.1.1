@@ -11,11 +11,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -26,7 +28,9 @@ public class UserServiceImpl implements UserDetailsService {
 
 
     public MyUser getUserById(Integer id) {
-        return userRepository.findById(id).orElse(null);
+        MyUser user = userRepository.findById(id).orElseThrow(()->new UsernameNotFoundException("No such user"));
+        System.out.println(user);
+        return user;
     }
 
     public List<MyUser> getUserList() {
@@ -52,10 +56,11 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MyUser user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        MyUser user = userRepository.findByLogin(login);
+        System.out.println(user);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found with username ", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found with username ", login));
         }
         return new User(user.getLogin(), user.getPassword(), getAuthorities(user.getRoles()));
     }

@@ -21,17 +21,17 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-        if (authentication.getPrincipal() instanceof UserDetails) {
-            MyUser userDetails = (MyUser) authentication.getPrincipal();
-            String id = userDetails.getId().toString();
+//        if (authentication.getPrincipal() instanceof UserDetails) {
+//            MyUser userDetails = (MyUser) authentication.getPrincipal();
+//            String id = userDetails.getId().toString();
 
             if (roles.contains("ROLE_ADMIN")) {
                 httpServletResponse.sendRedirect("/admin");
             } else if (roles.contains("ROLE_USER")) {
-                httpServletResponse.sendRedirect("/user/"+id);
+                httpServletResponse.sendRedirect("/user/1");
             } else {
                 httpServletResponse.sendRedirect("/");
             }
         }
-    }
+   // }
 }

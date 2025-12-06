@@ -29,15 +29,6 @@ public class MyUser {
     @Column(name = "age")
     private int age;
 
-//    private String role;
-//
-//    public String getRole() {
-//        return role;
-//    }
-
-//    public void setRole(Roles role) {
-//        this.role = String.valueOf(role);
-//    }
 
     @ManyToMany
     @JoinTable (name = "user_roles",
@@ -55,6 +46,14 @@ public class MyUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        String s = "";
+        for (Role r:roles){
+            s=s+" "+r.getName();
+        }
+        return s;
     }
 
     public Set<Role> getRoles() {
@@ -89,19 +88,13 @@ public class MyUser {
         this.mail = mail;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     @Override
     public String toString() {

@@ -11,12 +11,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 @Component
+@Transactional
 public class CustomAuthencationProvider implements AuthenticationProvider {
 
     private final UserRepository dao;
@@ -31,7 +33,7 @@ public class CustomAuthencationProvider implements AuthenticationProvider {
         String userName = authentication.getName();
         String password = authentication.getCredentials().toString();
         //получаем пользователя
-        MyUser myUser = dao.findByUsername(userName);
+        MyUser myUser = dao.findByLogin(userName);
         //смотрим, найден ли пользователь в базе
         if (myUser == null) {
             throw new BadCredentialsException("Unknown user " + userName);
@@ -39,13 +41,12 @@ public class CustomAuthencationProvider implements AuthenticationProvider {
         if (!password.equals(myUser.getPassword())) {
             throw new BadCredentialsException("Bad password");
         }
-        Set<Role> roles = myUser.getRoles();
-        List<Role> stringList = new ArrayList<>(roles);
+        String s = myUser.getRoles().toString();
 
         UserDetails principal = User.builder()
                 .username(myUser.getLogin())
                 .password(myUser.getPassword())
-                .roles(String.valueOf(stringList))
+                .roles(s)
                 .build();
         return new UsernamePasswordAuthenticationToken(
                 principal, password, principal.getAuthorities());

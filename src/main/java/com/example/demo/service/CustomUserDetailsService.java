@@ -10,12 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -25,10 +27,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        MyUser myUser= userRepository.findByLogin(userName);
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        MyUser myUser= userRepository.findByLogin(login);
         if (myUser == null) {
-            throw new UsernameNotFoundException("Unknown user: "+userName);
+            throw new UsernameNotFoundException("Unknown user: "+login);
         }
 //        Set<Role> roles = myUser.getRoles();
 //        List<Role> stringList = new ArrayList<>(roles);

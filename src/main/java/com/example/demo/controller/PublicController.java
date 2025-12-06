@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.MyUser;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.Roles;
+import com.example.demo.service.RoleService;
 import com.example.demo.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +24,11 @@ import static com.example.demo.entity.Roles.USER;
 public class PublicController {
 
     private final UserServiceImpl userService;
+    private final RoleService roleService;
 
-    public PublicController(UserServiceImpl userService) {
+    public PublicController(UserServiceImpl userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/home")
@@ -45,10 +48,21 @@ public class PublicController {
         if (bindingResult.hasErrors()) {
             return "public/create";
         }
-        Role role = new Role(USER.toString());
+        Role role1 = roleService.getRoleById(1);
+        Role role2 = roleService.getRoleById(2);
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(role2);
+//        roles.add(role1);
+     //   user.setRoles(roles);
+//        roleService.saveRole(role1);
+//        roleService.saveRole(role2);
+  //      Role role = new Role("ADMIN");
         Set<Role> roles = new HashSet<>();
-        roles.add(role);
+        roles.add(role1);
+        roles.add(role2);
         user.setRoles(roles);
+        roleService.saveRole(role1);
+        roleService.saveRole(role2);
         userService.saveUser(user);
         return "redirect:/users";
     }
